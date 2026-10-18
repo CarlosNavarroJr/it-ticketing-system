@@ -1,0 +1,48 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.welcome {
+  width: 100%;
+  max-width: 650px;
+  padding: 48px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+}
+
+.eyebrow {
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-size: 44px;
+  margin: 12px 0;
+}
+
+.welcome > p:not(.eyebrow) {
+  color: #64748b;
+  line-height: 1.7;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
