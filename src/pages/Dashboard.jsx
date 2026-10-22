@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { Ticket, CircleAlert, Clock3, CircleCheck, Search } from "lucide-react";
 
 import StatCard from "../components/StatCard";
@@ -13,7 +14,7 @@ function Dashboard() {
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
 
-  // Calculate tickets statistics
+  // Calculate ticket statistics
   const totalTickets = mockTickets.length;
 
   const openTickets = mockTickets.filter(
@@ -57,10 +58,10 @@ function Dashboard() {
 
   // Search and filter tickets
   const filteredTickets = mockTickets.filter((ticket) => {
-    const search = searchTerm.trim().toLocaleLowerCase();
+    const search = searchTerm.trim().toLowerCase();
 
     const matchesSearch =
-      ticket.title.toLowercase().includes(search) ||
+      ticket.title.toLowerCase().includes(search) ||
       String(ticket.id).includes(search) ||
       ticket.category.toLowerCase().includes(search);
 
@@ -77,7 +78,7 @@ function Dashboard() {
     <section className="dashboard">
       <div className="dashboard-heading">
         <h1>Dashboard</h1>
-        <p>Welcomed to SupportDesk. Here's your IT support overview.</p>
+        <p>Welcome to SupportDesk. Here's your IT support overview.</p>
       </div>
 
       <div className="stats-grid">
