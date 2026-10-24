@@ -1,4 +1,36 @@
-function CreateTicket() {
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { PlusCircle } from "lucide-react";
+
+import "../styles/createTicket.css";
+
+const initialForm = {
+  title: "",
+  description: "",
+  category: "",
+  priority: "Medium",
+};
+
+function CreateTicket({ addTicket }) {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState(initialForm);
+  const [errors, setErrors] = useState({});
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setFormData((previousData) => ({
+      ...previousData,
+      [name]: value,
+    }));
+
+    setErrors((previousErrors) => ({
+      ...previousErrors,
+      [name]: "",
+    }));
+  }
+
   return (
     <section className="dashboard">
       <div className="dashboard-heading">

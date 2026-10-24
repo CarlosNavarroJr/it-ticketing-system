@@ -4,28 +4,27 @@ import { Ticket, CircleAlert, Clock3, CircleCheck, Search } from "lucide-react";
 
 import StatCard from "../components/StatCard";
 import TicketTable from "../components/TicketTable";
-import { mockTickets } from "../data/mockTickets";
 
 import "../styles/dashboard.css";
 
-function Dashboard() {
+function Dashboard({ tickets }) {
   // State for search and filters
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
 
   // Calculate ticket statistics
-  const totalTickets = mockTickets.length;
+  const totalTickets = tickets.length;
 
-  const openTickets = mockTickets.filter(
+  const openTickets = tickets.filter(
     (ticket) => ticket.status === "Open",
   ).length;
 
-  const inProgressTickets = mockTickets.filter(
+  const inProgressTickets = tickets.filter(
     (ticket) => ticket.status === "In Progress",
   ).length;
 
-  const resolvedTickets = mockTickets.filter(
+  const resolvedTickets = tickets.filter(
     (ticket) => ticket.status === "Resolved",
   ).length;
 
@@ -57,7 +56,7 @@ function Dashboard() {
   ];
 
   // Search and filter tickets
-  const filteredTickets = mockTickets.filter((ticket) => {
+  const filteredTickets = tickets.filter((ticket) => {
     const search = searchTerm.trim().toLowerCase();
 
     const matchesSearch =

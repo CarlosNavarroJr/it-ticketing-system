@@ -1,9 +1,8 @@
 import TicketTable from "../components/TicketTable.jsx";
-import { mockTickets } from "../data/mockTickets";
 
 import "../styles/dashboard.css";
 
-function Tickets() {
+function Tickets({ tickets }) {
   return (
     <section className="tickets-page">
       <div className="dashboard-heading">
@@ -18,10 +17,10 @@ function Tickets() {
             <p>All submitted support requests.</p>
           </div>
 
-          <span className="ticket-count">{mockTickets.length} Tickets</span>
+          <span className="ticket-count">{tickets.length} Tickets</span>
         </div>
 
-        <TicketTable tickets={mockTickets} />
+        <TicketTable tickets={tickets} />
       </section>
     </section>
   );
