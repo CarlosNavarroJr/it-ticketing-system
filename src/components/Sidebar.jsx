@@ -1,3 +1,5 @@
+import { NavLink } from "react-router";
+
 import {
   LayoutDashboard,
   Ticket,
@@ -9,11 +11,11 @@ import {
 
 function Sidebar() {
   const menuItems = [
-    { name: "Dashboard", icon: LayoutDashboard },
-    { name: "Tickets", icon: Ticket },
-    { name: "Create Ticket", icon: PlusCircle },
-    { name: "Users", icon: Users },
-    { name: "Settings", icon: Settings },
+    { name: "Dashboard", path: "/", icon: LayoutDashboard },
+    { name: "Tickets", path: "/tickets", icon: Ticket },
+    { name: "Create Ticket", path: "/tickets/new", icon: PlusCircle },
+    { name: "Users", path: "/users", icon: Users },
+    { name: "Settings", path: "/settings", icon: Settings },
   ];
 
   return (
@@ -28,15 +30,17 @@ function Sidebar() {
           const Icon = item.icon;
 
           return (
-            <div
-              key={item.name}
-              className={
-                item.name === "Dashboard" ? "nav-item active" : "nav-item"
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end
+              className={({ isActive }) =>
+                isActive ? "nav-item active" : "nav-item"
               }
             >
               <Icon size={20} />
               <span>{item.name}</span>
-            </div>
+            </NavLink>
           );
         })}
       </nav>
