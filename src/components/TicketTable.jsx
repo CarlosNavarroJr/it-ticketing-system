@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 function TicketTable({ tickets }) {
   return (
     <div className="ticket-table-wrapper">
@@ -17,7 +19,13 @@ function TicketTable({ tickets }) {
           {tickets.map((ticket) => (
             <tr key={ticket.id}>
               <td>#{ticket.id}</td>
-              <td className="ticket-title">{ticket.title}</td>
+
+              <td className="ticket-title">
+                <Link to={`/tickets/${ticket.id}`} className="ticket-link">
+                  {ticket.title}
+                </Link>
+              </td>
+
               <td>{ticket.category}</td>
               <td>
                 <span

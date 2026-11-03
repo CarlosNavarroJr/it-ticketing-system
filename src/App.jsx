@@ -9,6 +9,7 @@ import CreateTicket from "./pages/CreateTicket";
 import Users from "./pages/Users";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import TicketDetails from "./pages/TicketDetails";
 
 import { mockTickets } from "./data/mockTickets";
 
@@ -31,6 +32,45 @@ function App() {
         assignedTo: "Unassigned",
       };
 
+      function updateTicket(ticketId, updates) {
+        const allowedStatuses = ["Open", "In Progress", "Resolved"];
+        const allowedPriorities = ["Low", "Medium", "High"];
+        const allowedAssignees = ["Unassigned", "Carlos", "Alex"];
+
+        const validUpdates = {};
+
+        if (
+          updates.status !== undefined &&
+          allowedStatuses.includes(updates.status)
+        ) {
+          validUpdates.status = updates.status;
+        }
+
+        if (
+          updates.priority !== undefined &&
+          allowedPriorities.includes(updates.priority)
+        ) {
+          validUpdates.priority = updates.priority;
+        }
+
+        if (
+          updates.assignedTo !== undefined &&
+          allowedAssignees.includes(updates.assignedTo)
+        ) {
+          validUpdates.assignedTo = updates.assignedTo;
+        }
+
+        if (Object.keys(validUpdates).length === 0) {
+          return;
+        }
+
+        setTickets((currentTickets) =>
+          currentTickets.map((ticket) =>
+            ticket.id === ticketId ? { ...ticket, ...validUpdates } : ticket,
+          ),
+        );
+      }
+
       return [newTicket, ...currentTickets];
     });
   }
@@ -50,6 +90,12 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
+          <Route
+            path="/tickets/:ticketId"
+            element={
+              <TicketDetails tickets={tickets} updateTicket={updateTicket} />
+            }
+          />
         </Routes>
       </main>
     </div>
