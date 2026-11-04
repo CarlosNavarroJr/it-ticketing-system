@@ -1,0 +1,161 @@
+.ticket-details-page {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.details-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.details-back-link:hover {
+  text-decoration: underline;
+}
+
+.details-heading {
+  margin-bottom: 28px;
+}
+
+.details-ticket-id {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.details-heading h1 {
+  font-size: clamp(24px, 4vw, 34px);
+  margin: 8px 0 16px;
+  overflow-wrap: anywhere;
+}
+
+.details-current-status {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.details-card {
+  background-color: white;
+  padding: 28px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.details-card h2 {
+  font-size: 20px;
+  margin: 0 0 20px;
+}
+
+.details-description {
+  color: #475569;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.details-divider {
+  border-top: 1px solid #e2e8f0;
+  margin: 28px 0;
+}
+
+.details-info-grid,
+.details-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.details-info-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.details-label {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.details-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.details-form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.details-form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: white;
+  color: #0f172a;
+  font: inherit;
+}
+
+.details-form-group select:focus-visible {
+  outline: 2px solid #93c5fd;
+}
+
+.details-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.details-success {
+  color: #166534;
+  font-size: 14px;
+  margin: 0;
+}
+
+.details-save-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 0;
+}
+
+.details-save-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .details-card {
+    padding: 20px;
+  }
+
+  .details-info-grid,
+  .details-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .details-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .details-save-button {
+    width: 100%;
+  }
+}
