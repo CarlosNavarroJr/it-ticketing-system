@@ -10,6 +10,7 @@ import Users from "./pages/Users";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import TicketDetails from "./pages/TicketDetails";
+import { validateTicketUpdate } from "./utils/ticketWorkflow";
 
 import { mockTickets } from "./data/mockTickets";
 
@@ -37,42 +38,64 @@ function App() {
   }
 
   function updateTicket(ticketId, updates) {
-    const allowedStatuses = ["Open", "In Progress", "Resolved"];
-    const allowedPriorities = ["Low", "Medium", "High"];
-    const allowedAssignees = ["Unassigned", "Carlos", "Alex"];
+    const currentTicket = tickets.find((ticket) => ticket.id === ticketId);
 
-    const validUpdates = {};
-
-    if (
-      updates.status !== undefined &&
-      allowedStatuses.includes(updates.status)
-    ) {
-      validUpdates.status = updates.status;
+    if (!currentTicket) {
+      return "Ticket not found.";
     }
 
-    if (
-      updates.priority !== undefined &&
-      allowedPriorities.includes(updates.priority)
-    ) {
-      validUpdates.priority = updates.priority;
+    const error = validateTicketUpdate(currentTicket, updates);
+
+    if (error) {
+      return error;
     }
 
-    if (
-      updates.assignedTo !== undefined &&
-      allowedAssignees.includes(updates.assignedTo)
-    ) {
-      validUpdates.assignedTo = updates.assignedTo;
+    const fields = ["status", "priority", "assignedTo"];
+
+    const changes = fields
+      .filter(
+        (field) =>
+          updates[field] !== undefined &&
+          updates[field] !== currentTicket[field],
+      )
+      .map((field) => ({
+        field,
+        oldValue: currentTicket[field],
+        newValue: updates[field],
+      }));
+
+    if (changes.length === 0) {
+      return null;
     }
 
-    if (Object.keys(validUpdates).length === 0) {
-      return;
-    }
+    const timestamp = new Date().toISOString();
 
-    setTickets((currentTickets) =>
-      currentTickets.map((ticket) =>
-        ticket.id === ticketId ? { ...ticket, ...validUpdates } : ticket,
+    const activity = changes.map((change) => ({
+      id: crypto.randomUUID(),
+      type: "ticket_updated",
+      field: change.field,
+      oldValue: change.oldValue,
+      newValue: change.newValue,
+      actor: "Demo Technician",
+      createdAt: timestamp,
+    }));
+
+    setTickets((previousTickets) =>
+      previousTickets.map((ticket) =>
+        ticket.id === ticketId
+          ? {
+              ...ticket,
+              ...Object.fromEntries(
+                changes.map(({ field, newValue }) => [field, newValue]),
+              ),
+              updatedAt: timestamp,
+              activity: [...activity, ...(ticket.activity ?? [])],
+            }
+          : ticket,
       ),
     );
+
+    return null;
   }
 
   return (
