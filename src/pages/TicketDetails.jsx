@@ -32,6 +32,7 @@ function TicketEditor({ ticket, updateTicket }) {
   });
 
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
 
   const hasChanges =
     formData.status !== ticket.status ||
@@ -47,12 +48,24 @@ function TicketEditor({ ticket, updateTicket }) {
     }));
 
     setSaved(false);
+    setError("");
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
     if (!hasChanges) return;
+
+    const result = updateTicket(ticket.id, formData);
+
+    if (result) {
+      setError(result);
+      setSaved(false);
+      return;
+    }
+
+    setError("");
+    setSaved(true);
 
     updateTicket(ticket.id, formData);
     setSaved(true);
@@ -147,6 +160,11 @@ function TicketEditor({ ticket, updateTicket }) {
         </div>
 
         <div className="details-actions">
+          {error && (
+            <p className="details-error" role="alert">
+              {error}
+            </p>
+          )}
           {saved && !hasChanges && (
             <p className="details-success" role="status">
               Ticket updated successfully.

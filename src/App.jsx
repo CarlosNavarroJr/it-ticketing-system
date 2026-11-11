@@ -21,16 +21,31 @@ function App() {
 
   function addTicket(ticketData) {
     setTickets((currentTickets) => {
-      const nexId =
+      const nextId =
         currentTickets.length > 0
           ? Math.max(...currentTickets.map((t) => t.id)) + 1
           : 1001;
 
+      const timestamp = new Date().toISOString();
+
       const newTicket = {
-        id: nexId,
+        id: nextId,
         ...ticketData,
         status: "Open",
         assignedTo: "Unassigned",
+        createdAt: timestamp,
+        updatedAt: timestamp,
+        activity: [
+          {
+            id: crypto.randomUUID(),
+            type: "ticket_created",
+            field: null,
+            oldValue: null,
+            newValue: null,
+            actor: "Demo User",
+            createdAt: timestamp,
+          },
+        ],
       };
 
       return [newTicket, ...currentTickets];
