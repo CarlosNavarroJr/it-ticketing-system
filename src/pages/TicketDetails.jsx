@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { ArrowLeft, Save } from "lucide-react";
+import TicketActivity from "../components/TicketActivity";
 
 import "../styles/ticketDetails.css";
 
