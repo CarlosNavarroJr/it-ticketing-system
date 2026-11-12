@@ -140,6 +140,12 @@
   cursor: not-allowed;
 }
 
+.details-error {
+  color: #b91c1c;
+  font-size: 14px;
+  margin: 0;
+}
+
 @media (max-width: 600px) {
   .details-card {
     padding: 20px;
