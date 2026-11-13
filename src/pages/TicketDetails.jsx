@@ -67,9 +67,6 @@ function TicketEditor({ ticket, updateTicket }) {
 
     setError("");
     setSaved(true);
-
-    updateTicket(ticket.id, formData);
-    setSaved(true);
   }
 
   return (
@@ -182,6 +179,7 @@ function TicketEditor({ ticket, updateTicket }) {
           </button>
         </div>
       </form>
+      <TicketActivity activity={ticket.activity ?? []} />
     </section>
   );
 }
